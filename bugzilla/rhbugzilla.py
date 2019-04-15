@@ -318,6 +318,31 @@ class RHBugzilla(Bugzilla):
         log.debug("Calling RedHat.product_get_objects(%s)", params)
         return self._proxy.RedHat.product_get_objects(params)
 
+    def product_delete_objects(self, ids=None, milestones=None, releases=None):
+        """
+        Wrapper method to delete product objects
+        RedHat::WebService::product_delete_objects method.
+
+        This is documented at
+        https://bugzilla.redhat.com/docs/en/html/integrating/api/Bugzilla/Extension/RedHat/WebService/Bugzilla.html
+
+        ids: An array of product version ids to delete
+
+        milestones: An array of product milestone ids to delete
+
+        releases: An array of product releases to delete
+        """
+        params = {}
+        if ids is not None:
+            params['ids'] = self._listify(ids)
+        if milestones is not None:
+            params['milestones'] = self._listify(milestones)
+        if releases is not None:
+            params['releases'] = self._listify(releases)
+
+        log.debug("Calling RedHat.product_delete_objects(%s)", params)
+        return self._proxy.RedHat.product_delete_objects(params)
+
     #################
     # Query methods #
     #################
